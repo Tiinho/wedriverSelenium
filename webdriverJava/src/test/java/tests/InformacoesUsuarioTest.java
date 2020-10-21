@@ -9,14 +9,12 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import suporte.Generator;
 import suporte.Screenshot;
-
-import java.util.concurrent.TimeUnit;
+import suporte.Web;
 
 @RunWith(DataDrivenTestRunner.class)
 @DataLoader(filePaths = "InformacoesUsuarioTest.csv")
@@ -29,14 +27,7 @@ public class InformacoesUsuarioTest {
 
     @Before
     public void setUp() {
-        // Abrindo o navegador
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\raimu\\Drivers\\chromedriver.exe");
-        navegador = new ChromeDriver();
-        navegador.manage().window().maximize();
-        navegador.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
-        //Navegando para página do taskit!
-        navegador.get("http://www.juliodelima.com.br/taskit");
+    navegador = Web.createChrome();
 
         // Clicar no link que possui o texto "Sign in"
         navegador.findElement(By.linkText("Sign in")).click();
@@ -68,7 +59,7 @@ public class InformacoesUsuarioTest {
         @Param(name="mensagem")String mensagemEsperada) {
 
         // Cliclar no button atráves do seu xpath //button[@data-target='addmoredata']
-        navegador.findElement(By.xpath("//button[@data-target=\"addmoredata\"]")).click();
+navegador.findElement(By.xpath("//button[@data-target=\"addmoredata\"]")).click();
 
         // Identificar a popup onde está o formulário de id "addmoredata"
         WebElement popupAddMoreData = navegador.findElement(By.id("addmoredata"));
